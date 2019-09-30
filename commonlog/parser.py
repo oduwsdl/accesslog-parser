@@ -1,6 +1,5 @@
 import datetime
 import re
-import time
 
 
 fields = {
@@ -64,12 +63,11 @@ def parse(line, non_empty_fields=[], validate_fields=[], field_matches=[], origt
             raise ValueError(f"Invalid field {fld}: {val}")
 
     try:
-        et = datetime.datetime.timestamp(datetime.datetime.strptime(record["origtime"], origtime_format))
-        record["epoch"] = int(et)
-        ut = time.gmtime(et)
-        record["date"] = time.strftime("%Y-%m-%d", ut)
-        record["time"] = time.strftime("%H:%M:%S", ut)
-        record["datetime"] = time.strftime("%Y%m%d%H%M%S", ut)
+        ut = datetime.datetime.strptime(record["origtime"], origtime_format).astimezone(tz=datetime.timezone.utc)
+        record["epoch"] = int(ut.timestamp())
+        record["date"] = ut.strftime("%Y-%m-%d")
+        record["time"] = ut.strftime("%H:%M:%S")
+        record["datetime"] = ut.strftime("%Y%m%d%H%M%S")
     except Exception as e:
         raise ValueError(f"Invalid time: {record['origtime']}")
 
