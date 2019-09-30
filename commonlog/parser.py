@@ -1,3 +1,4 @@
+import datetime
 import re
 import time
 
@@ -63,7 +64,7 @@ def parse(line, non_empty_fields=[], validate_fields=[], field_matches=[], origt
             raise ValueError(f"Invalid field {fld}: {val}")
 
     try:
-        et = time.mktime(time.strptime(record["origtime"], origtime_format))
+        et = datetime.datetime.timestamp(datetime.datetime.strptime(record["origtime"], origtime_format))
         record["epoch"] = int(et)
         ut = time.gmtime(et)
         record["date"] = time.strftime("%Y-%m-%d", ut)
