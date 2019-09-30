@@ -2,7 +2,7 @@
 
 import sys
 
-from commonlog import parser
+from commonlog.clparser import CLParser
 
 
 valid_logs = [{
@@ -94,9 +94,10 @@ def print_diff(expected, returned):
 
 if __name__ == "__main__":
     failures = 0
+    clp = CLParser()
     for log in valid_logs:
         try:
-            record = parser.parse(log['origline'])
+            record = clp.parse(log['origline'])
             assert record == log
             print("[PASSED]")
         except AssertionError as e:
@@ -106,7 +107,7 @@ if __name__ == "__main__":
 
     for log in invalid_logs:
         try:
-            parser.parse(log)
+            clp.parse(log)
             failures += 1
             print(f"[FAILED]: {log}")
             print("  Expected: ValueError")
