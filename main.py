@@ -40,7 +40,7 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser(usage="%(prog)s [options] [FILES ...]", description="A tool to parse Common Log formatted access logs with various derived fields.", epilog=print_fields(), formatter_class=argparse.RawTextHelpFormatter)
     ap.add_argument("-d", "--debug", action="store_true", help="Show debug messages on STDERR")
     ap.add_argument("-n", "--non-empty-fields", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Skip record if any of the provided fields is empty (comma separated list)")
-    ap.add_argument("-v", "--validate-fields", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help=f"Skip record if any of the provided field values are invalid ('all' or comma separated list from '{','.join(parser.validators.keys())}')")
+    ap.add_argument("-v", "--validate-fields", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help=f"Skip record if any of the provided field values are invalid\n('all' or comma separated list from '{','.join(parser.validators.keys())}')")
     ap.add_argument("-m", "--match-field", metavar="FIELD~RegExp", default=[], action="append", help="Skip record if field does not match the RegExp (can be used multiple times)")
     ap.add_argument("-t", "--origtime-format", metavar="TFORMAT", default=origtime_format, help=f"Original datetime format of logs (default: '{origtime_format.replace('%', '%%')}')")
     ap.add_argument("-f", "--format", default=output_format, help="Output format string (see available formatting fields below)")
