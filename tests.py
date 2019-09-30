@@ -89,7 +89,14 @@ def print_diff(expected, returned):
         e = expected.get(k, "")
         r = returned.get(k, "")
         if e != r:
-            print(f"  Field '{k}' => Expected: '{e}', Returned: '{r}'")
+            print(f"  Field '{k}' => Expected: '\033[92m{e}\033[0m', Returned: '\033[91m{r}\033[0m'")
+
+
+def print_result(msg=""):
+    if msg:
+        print(f"\033[91m[FAILED]\033[0m: {msg}")
+    else:
+        print("\033[92m[PASSED]\033[0m")
 
 
 if __name__ == "__main__":
@@ -99,20 +106,20 @@ if __name__ == "__main__":
         try:
             record = clp.parse(log['origline'])
             assert record == log
-            print("[PASSED]")
+            print_result()
         except AssertionError as e:
             failures += 1
-            print(f"[FAILED]: {log['origline']}")
+            print_result(log['origline'])
             print_diff(log, record)
 
     for log in invalid_logs:
         try:
             clp.parse(log)
             failures += 1
-            print(f"[FAILED]: {log}")
+            print_result(log)
             print("  Expected: ValueError")
         except ValueError as e:
-            print("[PASSED]")
+            print_result()
 
     if failures:
         sys.exit(f"{failures} failures!")
