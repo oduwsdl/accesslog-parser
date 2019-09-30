@@ -31,7 +31,8 @@ optional arguments:
   -n FIELDS, --non-empty-fields FIELDS
                         Skip record if any of the provided fields is empty (comma separated list)
   -v FIELDS, --validate-fields FIELDS
-                        Skip record if any of the provided field values are invalid ('all' or comma separated list from 'host,request,status,size,referrer')
+                        Skip record if any of the provided field values are invalid
+                        ('all' or comma separated list from 'host,request,status,size,referrer')
   -m FIELD~RegExp, --match-field FIELD~RegExp
                         Skip record if field does not match the RegExp (can be used multiple times)
   -t TFORMAT, --origtime-format TFORMAT
