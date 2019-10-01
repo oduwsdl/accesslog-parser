@@ -17,8 +17,8 @@ TODO
 ## CLI Reference
 
 ```
-$ ./main.py -h
-usage: main.py [options] [FILES ...]
+$ accesslog -h
+usage: accesslog [options] [FILES ...]
 
 A tool to parse Common Log formatted access logs with various derived fields.
 
@@ -26,20 +26,21 @@ positional arguments:
   files                 Log files (plain/gz/bz2) to parse (reads from the STDIN, if empty or '-')
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            Show this help message and exit
+  -v, --version         Show version number and exit
   -d, --debug           Show debug messages on STDERR
-  -n FIELDS, --non-empty-fields FIELDS
+  -e FIELDS, --nonempty FIELDS
                         Skip record if any of the provided fields is empty (comma separated list)
-  -v FIELDS, --validate-fields FIELDS
+  -i FIELDS, --valid FIELDS
                         Skip record if any of the provided field values are invalid
                         ('all' or comma separated list from 'host,request,status,size,referrer')
-  -m FIELD~RegExp, --match-field FIELD~RegExp
+  -m FIELD~RegExp, --match FIELD~RegExp
                         Skip record if field does not match the RegExp (can be used multiple times)
-  -t TFORMAT, --origtime-format TFORMAT
+  -t TFORMAT, --origtime TFORMAT
                         Original datetime format of logs (default: '%d/%b/%Y:%H:%M:%S %z')
   -f FORMAT, --format FORMAT
                         Output format string (see available formatting fields below)
-  -j JFIELDS, --json JFIELDS
+  -j FIELDS, --json FIELDS
                         Output NDJSON with the provided fields (use 'all' for all fields except 'origline')
 
 formatting fields:
