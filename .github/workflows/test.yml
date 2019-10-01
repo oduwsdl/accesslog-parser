@@ -1,4 +1,4 @@
-name: Run Tests on Various Python Versions
+name: Run Tests
 
 on: push
 
@@ -15,5 +15,5 @@ jobs:
         uses: actions/setup-python@v1
         with:
           python-version: ${{ matrix.python }}
-      - name: Run Tests on ${{ matrix.python }}
+      - name: Run Tests
         run: ./tests.py
