@@ -2,6 +2,24 @@
 
 Web server access log parser and CLI tool with added features for web archive replay logs.
 
+## Installation
+
+This package requires Python 3.6 or above.
+Install the latest version of the released package and `accesslog` CLI tool from PyPi:
+
+```
+$ pip install accesslog
+```
+
+Alternatively, build and install the development version of the package:
+
+```
+$ git clone https://github.com/oduwsdl/accesslog-parser.git
+$ cd accesslog-parser
+$ python setup.py install
+$ accesslog --version
+```
+
 ## Input Parsing
 
 TODO
