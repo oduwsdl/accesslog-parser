@@ -16,7 +16,7 @@ Alternatively, build and install the development version of the package:
 ```
 $ git clone https://github.com/oduwsdl/accesslog-parser.git
 $ cd accesslog-parser
-$ python setup.py install
+$ python3 setup.py install
 $ accesslog --version
 ```
 
