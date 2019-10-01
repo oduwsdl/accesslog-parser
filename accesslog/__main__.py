@@ -15,7 +15,7 @@ except ModuleNotFoundError:
 
 origtime_format = "%d/%b/%Y:%H:%M:%S %z"
 output_format = '{host} {date} {time} {method} {path} {status} {size} "{referrer}" "{agent}"'
-icount = ocount = 0
+counts = {"input": 0, "output": 0}
 
 
 def argument_parser():
@@ -41,7 +41,7 @@ def print_fields():
 
 
 def print_summary(**kw):
-    print(f"PROCESSED: {icount}, PRODUCED: {ocount}, SKIPPED: {icount - ocount}", **kw)
+    print(f"PROCESSED: {counts['input']}, PRODUCED: {counts['output']}, SKIPPED: {counts['input'] - counts['output']}", **kw)
 
 
 def string_output(record, template, **kw):
@@ -83,14 +83,14 @@ def main():
 
     try:
         for line in fileinput.input(files=args.files, mode="rb", openhook=fileinput.hook_compressed):
-            if not icount % 1_000 and icount:
+            if not counts["input"] % 1_000 and counts["input"]:
                 print_summary(file=debuglog)
             try:
-                icount += 1
+                counts["input"] += 1
                 line = line.decode().strip()
                 record = clp.parse(line)
                 output_formatter(record)
-                ocount += 1
+                counts["output"] += 1
             except ValueError as e:
                 print(f"SKIPPING [{e}]: {line}", file=debuglog)
         print_summary(file=debuglog)
