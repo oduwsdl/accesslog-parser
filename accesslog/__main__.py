@@ -76,8 +76,8 @@ def main():
     except ValueError as e:
         sys.exit(e)
 
-    if args.validate_fields == ["all"]:
-        args.validate_fields = CLParser.validators.keys()
+    if args.valid == ["all"]:
+        args.valid = CLParser.validators.keys()
 
     try:
         clp = CLParser(origtime_format=args.origtime, non_empty_fields=args.nonempty, validate_fields=args.valid, field_matchers=args.match)
