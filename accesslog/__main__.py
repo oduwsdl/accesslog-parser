@@ -19,14 +19,15 @@ counts = {"input": 0, "output": 0}
 
 
 def argument_parser():
-    ap = argparse.ArgumentParser(usage="%(prog)s [options] [FILES ...]", description="A tool to parse Common Log formatted access logs with various derived fields.", epilog=print_fields(), formatter_class=argparse.RawTextHelpFormatter)
+    ap = argparse.ArgumentParser(usage="accesslog [options] [FILES ...]", description="A tool to parse Common Log formatted access logs with various derived fields.", epilog=print_fields(), formatter_class=argparse.RawTextHelpFormatter)
+    ap.add_argument("-v", "--version", action="version", version=f"accesslog 0.1.0")
     ap.add_argument("-d", "--debug", action="store_true", help="Show debug messages on STDERR")
-    ap.add_argument("-n", "--non-empty-fields", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Skip record if any of the provided fields is empty (comma separated list)")
-    ap.add_argument("-v", "--validate-fields", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help=f"Skip record if any of the provided field values are invalid\n('all' or comma separated list from '{','.join(CLParser.validators.keys())}')")
-    ap.add_argument("-m", "--match-field", metavar="FIELD~RegExp", default=[], action="append", help="Skip record if field does not match the RegExp (can be used multiple times)")
-    ap.add_argument("-t", "--origtime-format", metavar="TFORMAT", default=origtime_format, help=f"Original datetime format of logs (default: '{origtime_format.replace('%', '%%')}')")
+    ap.add_argument("-e", "--nonempty", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Skip record if any of the provided fields is empty (comma separated list)")
+    ap.add_argument("-i", "--valid", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help=f"Skip record if any of the provided field values are invalid\n('all' or comma separated list from '{','.join(CLParser.validators.keys())}')")
+    ap.add_argument("-m", "--match", metavar="FIELD~RegExp", default=[], action="append", help="Skip record if field does not match the RegExp (can be used multiple times)")
+    ap.add_argument("-t", "--origtime", metavar="TFORMAT", default=origtime_format, help=f"Original datetime format of logs (default: '{origtime_format.replace('%', '%%')}')")
     ap.add_argument("-f", "--format", default=output_format, help="Output format string (see available formatting fields below)")
-    ap.add_argument("-j", "--json", metavar="JFIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Output NDJSON with the provided fields (use 'all' for all fields except 'origline')")
+    ap.add_argument("-j", "--json", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Output NDJSON with the provided fields (use 'all' for all fields except 'origline')")
     ap.add_argument("files", nargs="*", help="Log files (plain/gz/bz2) to parse (reads from the STDIN, if empty or '-')")
     return ap
 
@@ -77,7 +78,7 @@ def main():
         args.validate_fields = CLParser.validators.keys()
 
     try:
-        clp = CLParser(origtime_format=args.origtime_format, non_empty_fields=args.non_empty_fields, validate_fields=args.validate_fields, field_matchers=args.match_field)
+        clp = CLParser(origtime_format=args.origtime, non_empty_fields=args.nonempty, validate_fields=args.valid, field_matchers=args.match)
     except ValueError as e:
         sys.exit(e)
 
