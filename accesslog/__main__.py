@@ -7,7 +7,7 @@ import os
 import re
 import sys
 
-from commonlog.clparser import CLParser
+from clparser import CLParser
 
 
 origtime_format = "%d/%b/%Y:%H:%M:%S %z"
@@ -49,7 +49,7 @@ def json_output(record, template, **kw):
     print(json.dumps({fld: record[fld] for fld in template}), **kw)
 
 
-if __name__ == "__main__":
+def main():
     args = argument_parser().parse_args()
 
     debuglog = sys.stderr
@@ -94,3 +94,7 @@ if __name__ == "__main__":
     except (BrokenPipeError, KeyboardInterrupt) as e:
         print_summary(file=debuglog)
         sys.exit()
+
+
+if __name__ == "__main__":
+    main()

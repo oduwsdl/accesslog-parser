@@ -2,7 +2,7 @@
 
 import sys
 
-from commonlog.clparser import CLParser
+from accesslog.clparser import CLParser
 
 
 valid_logs = [{
