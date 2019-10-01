@@ -13,7 +13,7 @@ except ModuleNotFoundError:
     from clparser import CLParser
 
 
-VERSION = "0.1.0b1"
+VERSION = "0.1.0b2"
 origtime_format = "%d/%b/%Y:%H:%M:%S %z"
 output_format = '{host} {date} {time} {method} {path} {status} {size} "{referrer}" "{agent}"'
 counts = {"input": 0, "output": 0}

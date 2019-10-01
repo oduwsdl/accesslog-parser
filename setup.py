@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="accesslog",
-    version="0.1.0b1",
+    version="0.1.0b2",
     author="Sawood Alam",
     author_email="ibnesayeed@gmail.com",
     description="Web server access log parser and CLI tool with added features for web archive replay logs",
