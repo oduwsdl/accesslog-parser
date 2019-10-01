@@ -13,14 +13,16 @@ except ModuleNotFoundError:
     from clparser import CLParser
 
 
+VERSION = "0.1.0"
 origtime_format = "%d/%b/%Y:%H:%M:%S %z"
 output_format = '{host} {date} {time} {method} {path} {status} {size} "{referrer}" "{agent}"'
 counts = {"input": 0, "output": 0}
 
 
 def argument_parser():
-    ap = argparse.ArgumentParser(usage="accesslog [options] [FILES ...]", description="A tool to parse Common Log formatted access logs with various derived fields.", epilog=print_fields(), formatter_class=argparse.RawTextHelpFormatter)
-    ap.add_argument("-v", "--version", action="version", version=f"accesslog 0.1.0")
+    ap = argparse.ArgumentParser(usage="accesslog [options] [FILES ...]", description="A tool to parse Common Log formatted access logs with various derived fields.", epilog=print_fields(), add_help=False, formatter_class=argparse.RawTextHelpFormatter)
+    ap.add_argument("-h", "--help", action="help", help="Show this help message and exit")
+    ap.add_argument("-v", "--version", action="version", version=f"accesslog {VERSION}", help="Show version number and exit")
     ap.add_argument("-d", "--debug", action="store_true", help="Show debug messages on STDERR")
     ap.add_argument("-e", "--nonempty", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help="Skip record if any of the provided fields is empty (comma separated list)")
     ap.add_argument("-i", "--valid", metavar="FIELDS", default=[], type=lambda flds: [f.strip() for f in flds.split(",") if f], help=f"Skip record if any of the provided field values are invalid\n('all' or comma separated list from '{','.join(CLParser.validators.keys())}')")
