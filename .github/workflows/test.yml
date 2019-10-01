@@ -1,0 +1,19 @@
+name: Run Tests on Various Python Versions
+
+on: push
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        python: ["3.6", "3.7"]
+    name: Test on Python ${{ matrix.python }}
+    steps:
+      - uses: actions/checkout@master
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Run Tests on ${{ matrix.python }}
+        run: ./tests.py
