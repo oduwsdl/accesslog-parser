@@ -7,7 +7,10 @@ import os
 import re
 import sys
 
-from clparser import CLParser
+try:
+    from .clparser import CLParser
+except ModuleNotFoundError:
+    from clparser import CLParser
 
 
 origtime_format = "%d/%b/%Y:%H:%M:%S %z"
