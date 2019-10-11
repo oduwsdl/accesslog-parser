@@ -9,7 +9,7 @@ import sys
 
 try:
     from .clparser import CLParser
-except ModuleNotFoundError:
+except (ImportError, ModuleNotFoundError):
     from clparser import CLParser
 
 
