@@ -1,11 +1,13 @@
 import setuptools
 
+from accesslog import __VERSION__
+
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="accesslog",
-    version="0.1.0b4",
+    version=__VERSION__,
     author="Sawood Alam",
     author_email="ibnesayeed@gmail.com",
     description="Web server access log parser and CLI tool with added features for web archive replay logs",
